@@ -16,7 +16,9 @@ class exampleController extends Controller {
 		if(isset($_POST['title'])){
 			// мы передаем в модель массив с данными
 			// модель должна вернуть boolean
-			$dataToSave=array('title'=>$_POST['title']);
+			$dataToSave=array(['id'=>$_POST['id'],'name'=>$_POST['name'],'score'=>$_POST['score']]);
+
+
 			$addedItem=$this->model->create($dataToSave);
 			$this->setResponce($addedItem);
 		}

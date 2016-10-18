@@ -12,7 +12,7 @@ class Model{
 	}
 	
 	// общие методы для всех моделей
-
+//id=false
 	public function load($id=false){
 		// считаем файл
 		$data=file_get_contents($this->dataFileName);
@@ -43,12 +43,36 @@ class Model{
 	}
 
 
-	public function save($id){
-		echo 'напишите реализацию метода'; die();
+	public function save($newData){ //изменяет запись
+
+		$data=file_get_contents($this->dataFileName);
+		$data=json_decode($data);
+
+		foreach($data as $key => $value){
+			foreach ($value as $key2 => $value2) {
+				//echo "$key2";
+				if ($key2 == 'id' && $value2==$newData['id']) {
+					//echo "complete";
+					$value=$newData;
+					//array_replace($data[$key],$newData);
+					exit;
+				}
+			}
+		}
+		return file_put_contents($this->dataFileName, json_encode($data));
 	}
 
 
 	public function delete($id){
-		echo 'напишите реализацию метода'; die();	
+		$data=file_get_contents($this->dataFileName);
+		$data=json_decode($data);
+
+		if( isset($data[$id-1]))
+		{
+			unset($data[$id-1]);
+			sort($data);
+		}
+		// сохраняем файл, и возврfщаем результат сохранения (успех или провал)
+		return file_put_contents($this->dataFileName, json_encode($data));
 	}
 }

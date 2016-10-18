@@ -1,16 +1,13 @@
 <?php
 
 class App{
-
 	// контроллер по умолчанию index
 	private $controller='index';
 	// действие по умолчанию
 	private $action='index';
-	// 
 	private $request=array();
 	private $responce=array();	
-
-
+	
 	// метод вызывающийся при создании класса
 	public function __construct(){
 		

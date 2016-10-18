@@ -14,7 +14,6 @@ class Controller{
 		$this->data=$data;
 	}
 	
-
 	public function setResponce($responce){
 		$this->responce=$responce;
 	}
