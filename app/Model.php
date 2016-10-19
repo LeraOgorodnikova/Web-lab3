@@ -49,15 +49,9 @@ class Model{
 		$data=json_decode($data);
 
 		foreach($data as $key => $value){
-			foreach ($value as $key2 => $value2) {
-				//echo "$key2";
-				if ($key2 == 'id' && $value2==$newData['id']) {
-					//echo "complete";
-					$value=$newData;
-					//array_replace($data[$key],$newData);
-					exit;
+				if ($data[$key]->id==$newData['id']) {
+					$data[$key]=$newData;
 				}
-			}
 		}
 		return file_put_contents($this->dataFileName, json_encode($data));
 	}
@@ -67,11 +61,13 @@ class Model{
 		$data=file_get_contents($this->dataFileName);
 		$data=json_decode($data);
 
-		if( isset($data[$id-1]))
-		{
-			unset($data[$id-1]);
-			sort($data);
+		foreach($data as $key => $value){
+			if ($data[$key]->id==$id) {
+					unset($data[$key]);
+					sort($data);
+				}
 		}
+
 		// сохраняем файл, и возврfщаем результат сохранения (успех или провал)
 		return file_put_contents($this->dataFileName, json_encode($data));
 	}
