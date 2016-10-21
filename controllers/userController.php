@@ -21,8 +21,14 @@ class userController extends Controller
             // модель должна вернуть boolean
 
             $examples=$this->model->load(); //просим все записи
-            $size=count($examples)+1;
-            $dataToSave=array('id'=>$size,'name'=>$data['name'],'score'=>$data['score']);
+            $id=1;
+            foreach($examples as $key => $value){
+                if ($examples[$key]->id > $id) {
+                    $id=$examples[$key]->id;
+                }
+            }
+            $id++;
+            $dataToSave=array('id'=>$id,'name'=>$data['name'],'score'=>$data['score']);
             $addedItem=$this->model->create($dataToSave);
             $this->setResponce($addedItem);
         }
